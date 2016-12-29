@@ -204,6 +204,27 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 		return new EntrySet(this.keyList, this.data);
 	}
 
+	/**
+	 * キーの順番を再配置する
+	 *
+	 * @param キーのリスト
+	 */
+	public void relocation(List<Key> keyList) {
+		Map<Key, Value> exists = createMap(keyList.size());
+		for(Key key : keyList) {
+			if(!this.data.containsKey(key)) {
+				this.data.put(key, null);
+			}
+			exists.put(key, null);
+		}
+		for(Key key : this.keyList) {
+			if(!exists.containsKey(key)) {
+				this.data.remove(key);
+			}
+		}
+		this.keyList = keyList;
+	}
+
 	/*
 	 *
 	 */

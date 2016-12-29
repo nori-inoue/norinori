@@ -1,5 +1,6 @@
 package jp.gr.norinori.core.collection;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,4 +35,11 @@ public interface NumberingMap<Key, Value> extends Map<Key, Value> {
      * @return 番号
      */
     public int indexOf(Key key);
+
+	/**
+	 * キーの順番を再配置する
+	 *
+	 * @param キーのリスト
+	 */
+	public void relocation(List<Key> keyList);
 }

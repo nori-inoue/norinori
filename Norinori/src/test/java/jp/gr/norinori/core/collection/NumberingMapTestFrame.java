@@ -4,17 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import jp.gr.norinori.core.collection.NumberingMap;
-import jp.gr.norinori.test.NorinoriTestFrame;
-
 import org.junit.Before;
 import org.junit.Test;
+
+import jp.gr.norinori.test.NorinoriTestFrame;
 
 /**
  * 番号付けマップテストフレーム
@@ -234,4 +235,32 @@ public abstract class NumberingMapTestFrame extends NorinoriTestFrame {
 
         assertEquals(11, count);
     }
+
+    /**
+     * relocation
+     */
+    @Test
+    public void testRelocation() {
+    	List<String> keyList = new ArrayList<>();
+    	keyList.add("0");
+    	keyList.add("10");
+    	keyList.add("9");
+    	keyList.add("8");
+    	keyList.add("7");
+    	keyList.add("6");
+    	keyList.add("5");
+    	keyList.add("X");
+
+    	this.map.relocation(keyList);
+
+        int i = 0;
+        for (String key : this.map.keySet()) {
+            assertEquals(keyList.get(i), key);
+            i++;
+        }
+
+        assertFalse(this.map.containsKey("2"));
+        assertTrue(this.map.containsKey("X"));
+    }
+
 }
