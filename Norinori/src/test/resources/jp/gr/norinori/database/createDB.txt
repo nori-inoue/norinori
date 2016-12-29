@@ -1,0 +1,28 @@
+/* MySQL */
+
+CREATE DATABASE `point` /*!40100 COLLATE 'utf8_general_ci' */
+
+CREATE TABLE `product` (
+	`productid` INT(11) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(50) NULL DEFAULT NULL,
+	`categoryid` INT(11) NULL DEFAULT '0',
+	`imageurl` VARCHAR(50) NULL DEFAULT NULL,
+	`point` INT(11) NULL DEFAULT '0',
+	`features` VARCHAR(50) NULL DEFAULT NULL,
+	`description` TEXT NULL,
+	`createtime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	`createuser` INT(11) NULL DEFAULT '0',
+	`createip` VARCHAR(50) NULL DEFAULT NULL,
+	`createapplication` VARCHAR(50) NULL DEFAULT NULL,
+	`modifytime` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+	`modifyuser` INT(11) NULL DEFAULT '0',
+	`modifyip` VARCHAR(50) NULL DEFAULT NULL,
+	`modifyapplication` VARCHAR(50) NULL DEFAULT NULL,
+	PRIMARY KEY (`productid`)
+)
+ENGINE=InnoDB
+;
+
+
+INSERT INTO `point`.`product` (`name`, `point`) VALUES ('Product1', 100);
+INSERT INTO `point`.`product` (`name`, `point`) VALUES ('Product2', 200);
