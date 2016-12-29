@@ -13,6 +13,7 @@ import jp.gr.norinori.test.NorinoriTestFrame;
 import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class MySqlTest extends NorinoriTestFrame {
 
 	// 定数=====================================================================
@@ -24,7 +25,7 @@ public class MySqlTest extends NorinoriTestFrame {
 
 	}
 
-	@Test
+	@Ignore
 	public void testRead() {
 		MySql me = new MySql();
 		me.configure(RESOURCE_PATH + "/db.properties");
