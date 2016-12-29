@@ -6,12 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import jp.gr.norinori.core.flow.Transaction;
+
 /**
  * データベースコネクション
  *
  * @author inoue
  */
-public interface DatabaseConnection {
+public interface DatabaseConnection extends Transaction {
 	/**
 	 * データベース名を取得する
 	 *

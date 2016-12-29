@@ -4,7 +4,10 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 	// メンバ===================================================================
@@ -30,6 +33,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 	// メソッド=================================================================
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#getDatabaseName()
 	 */
 	@Override
@@ -39,9 +43,9 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
-	 * @see
-	 * jp.gr.norinori.database.DatabaseConnection#setDatabaeName(java.lang.String
-	 * )
+	 *
+	 * @see jp.gr.norinori.database.DatabaseConnection#setDatabaeName(java.lang.
+	 * String )
 	 */
 	@Override
 	public void setDatabaeName(String databaseName) {
@@ -50,6 +54,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#getConnection()
 	 */
 	@Override
@@ -76,6 +81,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#createStatement()
 	 */
 	@Override
@@ -85,6 +91,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see
 	 * jp.gr.norinori.database.DatabaseConnection#prepareStatement(java.lang
 	 * .String)
@@ -96,6 +103,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see
 	 * jp.gr.norinori.database.DatabaseConnection#prepareStatement(java.lang
 	 * .String, int)
@@ -107,6 +115,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see
 	 * jp.gr.norinori.database.DatabaseConnection#prepareCall(java.lang.String)
 	 */
@@ -117,6 +126,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#commit()
 	 */
 	@Override
@@ -126,6 +136,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#rollback()
 	 */
 	@Override
@@ -135,6 +146,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#close()
 	 */
 	@Override
@@ -144,6 +156,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#setValidTime(int)
 	 */
 	@Override
@@ -153,6 +166,7 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 
 	/*
 	 * (非 Javadoc)
+	 *
 	 * @see jp.gr.norinori.database.DatabaseConnection#reconnect()
 	 */
 	@Override
@@ -162,5 +176,44 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 		if (databaseConnection != null) {
 			this.connection = databaseConnection.getConnection();
 		}
+	}
+
+	private Map<String, Savepoint> savePoints = null;
+
+	@Override
+	public void save(String savePoint) throws Exception {
+		if (this.savePoints == null) {
+			this.savePoints = new HashMap<String, Savepoint>();
+		}
+		this.savePoints.put(savePoint, getConnection().setSavepoint(savePoint));
+	}
+
+	@Override
+	public void rollback(String savePoint) throws Exception {
+		if (this.savePoints == null || !this.savePoints.containsKey(savePoint)) {
+			getConnection().rollback(null);
+			return;
+		}
+		getConnection().rollback(this.savePoints.get(savePoint));
+	}
+
+	@Override
+	public void create() throws Exception {
+		// no process
+	}
+
+	@Override
+	public <T> void create(T target) throws Exception {
+		// no process
+	}
+
+	@Override
+	public boolean isLiving() throws Exception {
+		return !getConnection().isClosed();
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		close();
 	}
 }
