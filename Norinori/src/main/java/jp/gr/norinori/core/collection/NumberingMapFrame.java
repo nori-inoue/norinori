@@ -89,8 +89,8 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 	 * @param index 番号
 	 * @return 値
 	 */
-	public Value get(int index) {
-		return get(getKey(index));
+	public Value getOf(int index) {
+		return get(getOfKey(index));
 	}
 
 	/**
@@ -99,7 +99,7 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 	 * @param index 番号
 	 * @return キー
 	 */
-	public Key getKey(int index) {
+	public Key getOfKey(int index) {
 		return this.keyList.get(index);
 	}
 

@@ -18,7 +18,7 @@ public interface NumberingMap<Key, Value> extends Map<Key, Value> {
      * @param index 番号
      * @return 値
      */
-    public Value get(int index);
+    public Value getOf(int index);
 
     /**
      * 指定された番号からキーを取得する
@@ -26,7 +26,7 @@ public interface NumberingMap<Key, Value> extends Map<Key, Value> {
      * @param index 番号
      * @return キー
      */
-    public Key getKey(int index);
+    public Key getOfKey(int index);
 
     /**
      * 指定されたキーから番号を取得する

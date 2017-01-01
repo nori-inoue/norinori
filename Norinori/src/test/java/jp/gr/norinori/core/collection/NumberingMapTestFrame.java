@@ -70,21 +70,21 @@ public abstract class NumberingMapTestFrame extends NorinoriTestFrame {
 	}
 
 	/**
-	 * {@link jp.gr.norinori.core.collection.NumberingMapFrame#get(int)}
+	 * {@link jp.gr.norinori.core.collection.NumberingMapFrame#getOf(int)}
 	 * のためのテスト・メソッド。
 	 */
 	@Test
-	public void testGetInt() {
-		assertEquals("200", this.map.get(1));
+	public void testGetOf() {
+		assertEquals("200", this.map.getOf(1));
 	}
 
 	/**
-	 * {@link jp.gr.norinori.core.collection.NumberingMapFrame#getKey(int)}
+	 * {@link jp.gr.norinori.core.collection.NumberingMapFrame#getOfKey(int)}
 	 * のためのテスト・メソッド。
 	 */
 	@Test
-	public void testGetKey() {
-		assertEquals("2", this.map.getKey(1));
+	public void testGetOfKey() {
+		assertEquals("2", this.map.getOfKey(1));
 	}
 
 	/**
