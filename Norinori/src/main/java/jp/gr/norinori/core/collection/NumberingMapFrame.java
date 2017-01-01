@@ -47,6 +47,17 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 		this.data = createMap(capacity);
 	}
 
+	/**
+	 * 番号付けマップのインスタンスを生成する
+	 *
+	 * @param numberingMap 番号付けマップ
+	 */
+	public NumberingMapFrame(NumberingMap<Key, Value> numberingMap) {
+		super();
+		this.keyList = new ArrayList<Key>(numberingMap.keyList());
+		this.data = createMap(numberingMap);
+	}
+
 	// 抽象メソッド=============================================================
 	/**
 	 * マップを生成する
@@ -62,6 +73,14 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 	 * @return マップ
 	 */
 	protected abstract Map<Key, Value> createMap(int capacity);
+
+	/**
+	 * マップを生成する
+	 *
+	 * @param numberingMap 番号付けマップ
+	 * @return マップ
+	 */
+	protected abstract Map<Key, Value> createMap(NumberingMap<Key, Value> numberingMap);
 
 	// メソッド=============================================================
 	/**

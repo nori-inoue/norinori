@@ -27,6 +27,7 @@ public abstract class NumberingMapTestFrame extends NorinoriTestFrame {
 	protected NumberingMap<String, String> map;
 
 	protected abstract NumberingMap<String, String> createMap();
+	protected abstract NumberingMap<String, String> createMap(NumberingMap<String, String> map);
 
 	/**
 	 * @throws java.lang.Exception
@@ -309,4 +310,15 @@ public abstract class NumberingMapTestFrame extends NorinoriTestFrame {
 		assertTrue(this.map.containsKey("X"));
 	}
 
+
+	/**
+	 * {@link jp.gr.norinori.core.collection.NumberingMapFrame#size()}
+	 * のためのテスト・メソッド。
+	 */
+	@Test
+	public void testConstructor() {
+		NumberingMap<String, String> map2 = createMap(this.map);
+		this.map.clear();
+		assertEquals(11, map2.size());
+	}
 }
