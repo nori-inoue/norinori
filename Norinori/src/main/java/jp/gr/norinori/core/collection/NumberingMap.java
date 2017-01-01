@@ -37,6 +37,20 @@ public interface NumberingMap<Key, Value> extends Map<Key, Value> {
     public int indexOf(Key key);
 
 	/**
+	 * キーのリストを取得する
+	 *
+	 * @return キーのリスト
+	 */
+	public List<Key> keyList();
+
+	/**
+	 * 値のリストを取得する
+	 *
+	 * @return 値のリスト
+	 */
+	public List<Value> valueList();
+
+	/**
 	 * キーの順番を再配置する
 	 *
 	 * @param キーのリスト

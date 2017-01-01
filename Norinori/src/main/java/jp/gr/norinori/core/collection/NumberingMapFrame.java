@@ -205,6 +205,28 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 	}
 
 	/**
+	 * 値のリストを取得する
+	 *
+	 * @return 値のリスト
+	 */
+	public List<Value> valueList() {
+		List<Value> values = new ArrayList<Value>();
+		for (Key key : this.keyList) {
+			values.add(this.data.get(key));
+		}
+		return values;
+	}
+
+	/**
+	 * キーのリストを取得する
+	 *
+	 * @return キーのリスト
+	 */
+	public List<Key> keyList() {
+		return this.keyList;
+	}
+
+	/**
 	 * キーの順番を再配置する
 	 *
 	 * @param キーのリスト
