@@ -114,4 +114,20 @@ public interface DatabaseConnection extends Transaction {
 	 * @throws SQLException
 	 */
 	public void reconnect() throws SQLException;
+
+	/**
+	 * 自動コミットモードを設定する
+	 *
+	 * @param autoCommit 自動コミットモード  true:ON、false:OFF
+	 * @throws SQLException
+	 */
+	public void setAutoCommit(boolean autoCommit) throws SQLException;
+
+	/**
+	 * 自動コミットモードを取得する
+	 *
+	 * @return 自動コミットモード
+	 * @throws SQLException
+	 */
+	public boolean getAutoCommit() throws SQLException;
 }

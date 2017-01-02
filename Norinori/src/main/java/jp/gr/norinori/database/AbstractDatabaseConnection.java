@@ -216,4 +216,25 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 	public void destroy() throws Exception {
 		close();
 	}
+
+	/*
+	 * (非 Javadoc)
+	 *
+	 * @see jp.gr.norinori.database.DatabaseConnection#setAutoCommit(boolean)
+	 */
+	@Override
+	public void setAutoCommit(boolean autoCommit) throws SQLException {
+		getConnection().setAutoCommit(autoCommit);
+	}
+
+	/*
+	 * (非 Javadoc)
+	 *
+	 * @see jp.gr.norinori.database.DatabaseConnection#getAutoCommit()
+	 */
+	@Override
+	public boolean getAutoCommit() throws SQLException {
+		return getConnection().getAutoCommit();
+	}
+
 }
