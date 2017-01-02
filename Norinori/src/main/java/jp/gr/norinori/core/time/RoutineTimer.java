@@ -22,6 +22,8 @@ public class RoutineTimer {
 	private int lastTimerid = 0;
 	private Map<String, String> timeidTreeMap;
 
+	private int extendSize = 10;
+
 	// コンストラクタ===========================================================
 	/**
 	 * 処理時間計測のインスタンスを生成する
@@ -40,6 +42,8 @@ public class RoutineTimer {
 		this.timeidTreeMap = new HashMap<String, String>(capacity);
 		this.timers = new Long[capacity];
 		this.totalTimes = new TimerPoint[capacity];
+
+		this.extendSize = (int) Math.sqrt(capacity);
 	}
 
 	/**
@@ -55,6 +59,12 @@ public class RoutineTimer {
 		if (this.timeridMap.containsKey(timeid)) {
 			timerid = this.timeridMap.get(timeid);
 		} else {
+			if (this.timers.length <= timerid) {
+				this.timers = ArrayUtil.resize(this.timers, this.timers.length + this.extendSize);
+				this.totalTimes = ArrayUtil.resize(this.totalTimes, this.totalTimes.length + this.extendSize);
+
+				this.extendSize = (int) Math.sqrt(this.timers.length);
+			}
 			this.timeridMap.put(timeid, timerid);
 			this.totalTimes[timerid] = new TimerPoint();
 			this.lastTimerid++;

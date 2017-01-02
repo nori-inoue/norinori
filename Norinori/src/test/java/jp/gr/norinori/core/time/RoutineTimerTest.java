@@ -187,6 +187,20 @@ public class RoutineTimerTest {
 
 	}
 
+	@Test
+	public void testTimer20() {
+		RoutineTimer routineTimer = new RoutineTimer();
+		try {
+			for (int i = 0; i < 20; i++) {
+				routineTimer.start("test" + i);
+				routineTimer.stop("test" + i);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+
 	private static void logTimer(RoutineTimer timer, TreeNode<String> node, int depth) {
 		String pad = "";
 		if (depth > 0) {
