@@ -197,7 +197,7 @@ public class StringUtil {
 	 * @param str 文字列
 	 * @param size 幅
 	 * @param padChar 埋める文字
-	 * @return 指定した文字列を指定幅の中央に位置した文字列。 center("a", 6, ' ') = "   a  "
+	 * @return 指定した文字列を指定幅の中央に位置した文字列。 center("a", 6, ' ') = " a "
 	 */
 	public static String center(String str, int size, char padChar) {
 		if (str == null) {
@@ -258,15 +258,33 @@ public class StringUtil {
 			'へ', 'べ', 'ぺ', 'ほ', 'ぼ', 'ぽ', 'ま', 'み', 'む', 'め', 'も', 'ゃ', 'や', 'ゅ', 'ゆ', 'ょ', 'よ', 'ら', 'り', 'る', 'れ',
 			'ろ', 'ゎ', 'わ', 'ゐ', 'ゑ', 'を', 'ん', 'ゔ', 'ゕ', 'ゖ' };
 
-	private static final char[] ZENKAKU_MARKS = { '、', '。', 'ー' };
+	private static final char[] ZENKAKU_MARKS = { '！', '＂', '＃', '＄', '％', '＆', '＇', '（', '）', '＊', '＋', '，', '－', '．',
+			'／' };
 
-	private static final String[] HANKAKU_KATAKANA = { "ｧ", "ｱ", "ｨ", "ｲ", "ｩ", "ｳ", "ｪ", "ｴ", "ｫ", "ｵ", "ｶ", "ｶﾞ",
-			"ｷ", "ｷﾞ", "ｸ", "ｸﾞ", "ｹ", "ｹﾞ", "ｺ", "ｺﾞ", "ｻ", "ｻﾞ", "ｼ", "ｼﾞ", "ｽ", "ｽﾞ", "ｾ", "ｾﾞ", "ｿ", "ｿﾞ", "ﾀ",
-			"ﾀﾞ", "ﾁ", "ﾁﾞ", "ｯ", "ﾂ", "ﾂﾞ", "ﾃ", "ﾃﾞ", "ﾄ", "ﾄﾞ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾊﾞ", "ﾊﾟ", "ﾋ", "ﾋﾞ",
-			"ﾋﾟ", "ﾌ", "ﾌﾞ", "ﾌﾟ", "ﾍ", "ﾍﾞ", "ﾍﾟ", "ﾎ", "ﾎﾞ", "ﾎﾟ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ｬ", "ﾔ", "ｭ", "ﾕ", "ｮ",
-			"ﾖ", "ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ﾜ", "ｲ", "ｴ", "ｦ", "ﾝ", "ｳﾞ", "ｶ", "ｹ" };
+	private static final char[] ZENKAKU_MARKS_EX = { '：', '；', '＜', '＝', '＞', '？', '＠' };
 
-	private static final String[] HANKAKU_MARKS = { "､", "｡", "ｰ" };
+	private static final char[] ZENKAKU_MARKS_EX2 = { '＾', '＿' };
+
+	private static final char[] ZENKAKU_KANA_MARKS = { '‐', '、', '。', 'ー' };
+
+	private static final char[] ZENKAKU_NUMBER = { '０', '１', '２', '３', '４', '５', '６', '７', '８', '９' };
+
+	private static final String[] HANKAKU_KATAKANA = { "ｧ", "ｱ", "ｨ", "ｲ", "ｩ", "ｳ", "ｪ", "ｴ", "ｫ", "ｵ", "ｶ", "ｶﾞ", "ｷ",
+			"ｷﾞ", "ｸ", "ｸﾞ", "ｹ", "ｹﾞ", "ｺ", "ｺﾞ", "ｻ", "ｻﾞ", "ｼ", "ｼﾞ", "ｽ", "ｽﾞ", "ｾ", "ｾﾞ", "ｿ", "ｿﾞ", "ﾀ", "ﾀﾞ",
+			"ﾁ", "ﾁﾞ", "ｯ", "ﾂ", "ﾂﾞ", "ﾃ", "ﾃﾞ", "ﾄ", "ﾄﾞ", "ﾅ", "ﾆ", "ﾇ", "ﾈ", "ﾉ", "ﾊ", "ﾊﾞ", "ﾊﾟ", "ﾋ", "ﾋﾞ", "ﾋﾟ",
+			"ﾌ", "ﾌﾞ", "ﾌﾟ", "ﾍ", "ﾍﾞ", "ﾍﾟ", "ﾎ", "ﾎﾞ", "ﾎﾟ", "ﾏ", "ﾐ", "ﾑ", "ﾒ", "ﾓ", "ｬ", "ﾔ", "ｭ", "ﾕ", "ｮ", "ﾖ",
+			"ﾗ", "ﾘ", "ﾙ", "ﾚ", "ﾛ", "ﾜ", "ﾜ", "ｲ", "ｴ", "ｦ", "ﾝ", "ｳﾞ", "ｶ", "ｹ" };
+
+	private static final String[] HANKAKU_MARKS = { "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-",
+			".", "/" };
+
+	private static final String[] HANKAKU_MARKS_EX = { ":", ";", "<", "=", ">", "?", "@" };
+
+	private static final String[] HANKAKU_MARKS_EX2 = { "^", "_" };
+
+	private static final String[] HANKAKU_KANA_MARKS = { "-", "､", "｡", "ｰ" };
+
+	private static final String[] HANKAKU_NUMBER = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 	private static final char ZENKAKU_KATAKANA_FIRST_CHAR = ZENKAKU_KATAKANA[0];
 
@@ -276,9 +294,25 @@ public class StringUtil {
 
 	private static final char ZENKAKU_HIRAGANA_LAST_CHAR = ZENKAKU_HIRAGANA[ZENKAKU_HIRAGANA.length - 1];
 
+	private static final char ZENKAKU_KANA_MARKS_FIRST_CHAR = ZENKAKU_KANA_MARKS[0];
+
+	private static final char ZENKAKU_KANA_MARKS_LAST_CHAR = ZENKAKU_KANA_MARKS[ZENKAKU_KANA_MARKS.length - 1];
+
+	private static final char ZENKAKU_NUMBER_FIRST_CHAR = ZENKAKU_NUMBER[0];
+
+	private static final char ZENKAKU_NUMBER_LAST_CHAR = ZENKAKU_NUMBER[ZENKAKU_NUMBER.length - 1];
+
 	private static final char ZENKAKU_MARKS_FIRST_CHAR = ZENKAKU_MARKS[0];
 
 	private static final char ZENKAKU_MARKS_LAST_CHAR = ZENKAKU_MARKS[ZENKAKU_MARKS.length - 1];
+
+	private static final char ZENKAKU_MARKS_EX_FIRST_CHAR = ZENKAKU_MARKS_EX[0];
+
+	private static final char ZENKAKU_MARKS_EX_LAST_CHAR = ZENKAKU_MARKS_EX[ZENKAKU_MARKS_EX.length - 1];
+
+	private static final char ZENKAKU_MARKS_EX_FIRST_CHAR2 = ZENKAKU_MARKS_EX2[0];
+
+	private static final char ZENKAKU_MARKS_EX_LAST_CHAR2 = ZENKAKU_MARKS_EX2[ZENKAKU_MARKS_EX2.length - 1];
 
 	/**
 	 * 全角カナ文字列を半角カナに変換する
@@ -291,21 +325,52 @@ public class StringUtil {
 		int l = str.length();
 		for (int i = 0; i < l; i++) {
 			char c = str.charAt(i);
-			sb.append(toHankakuKana(c));
+			sb.append(toHankaku(c));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 全角数字を半角に変換する
+	 *
+	 * @param str 文字列
+	 * @return 半角数字に変換した文字列
+	 */
+	public static String toHankakuNumber(String str) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < str.length(); i++) {
+			char c = str.charAt(i);
+			if (c >= '０' && c <= '９') {
+				sb.append(HANKAKU_NUMBER[c - ZENKAKU_NUMBER_FIRST_CHAR]);
+			} else {
+				sb.append(String.valueOf(c));
+			}
 		}
 		return sb.toString();
 	}
 
 	// 全角カナを半角カナに変換する
-	private static String toHankakuKana(char c) {
+	private static String toHankaku(char c) {
 		if (c >= ZENKAKU_KATAKANA_FIRST_CHAR && c <= ZENKAKU_KATAKANA_LAST_CHAR) {
 			return HANKAKU_KATAKANA[c - ZENKAKU_KATAKANA_FIRST_CHAR];
 		} else if (c >= ZENKAKU_HIRAGANA_FIRST_CHAR && c <= ZENKAKU_HIRAGANA_LAST_CHAR) {
 			return HANKAKU_KATAKANA[c - ZENKAKU_HIRAGANA_FIRST_CHAR];
+		} else if (c >= ZENKAKU_NUMBER_FIRST_CHAR && c <= ZENKAKU_NUMBER_LAST_CHAR) {
+			return HANKAKU_NUMBER[c - ZENKAKU_NUMBER_FIRST_CHAR];
 		} else if (c >= ZENKAKU_MARKS_FIRST_CHAR && c <= ZENKAKU_MARKS_LAST_CHAR) {
+			return HANKAKU_MARKS[c - ZENKAKU_MARKS_FIRST_CHAR];
+		} else if (c >= ZENKAKU_MARKS_EX_FIRST_CHAR && c <= ZENKAKU_MARKS_EX_LAST_CHAR) {
+			return HANKAKU_MARKS_EX[c - ZENKAKU_MARKS_EX_FIRST_CHAR];
+		} else if (c >= ZENKAKU_KANA_MARKS_FIRST_CHAR && c <= ZENKAKU_KANA_MARKS_LAST_CHAR) {
 			for (int i = 0; i < ZENKAKU_MARKS.length; i++) {
-				if (c == ZENKAKU_MARKS[i]) {
-					return HANKAKU_MARKS[i];
+				if (c == ZENKAKU_KANA_MARKS[i]) {
+					return HANKAKU_KANA_MARKS[i];
+				}
+			}
+		} else if (c >= ZENKAKU_MARKS_EX_FIRST_CHAR2 && c <= ZENKAKU_MARKS_EX_LAST_CHAR2) {
+			for (int i = 0; i < ZENKAKU_MARKS_EX2.length; i++) {
+				if (c == ZENKAKU_MARKS_EX2[i]) {
+					return HANKAKU_MARKS_EX2[i];
 				}
 			}
 		}

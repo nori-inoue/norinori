@@ -44,8 +44,12 @@ public class StringUtilTest {
 	}
 
 	@Test
-	public void testToHankakuKana() {
-		assertEquals("我思ｳﾕｴﾆ我ｱﾘ｡ﾅｰｾﾞﾅｾﾞ？", StringUtil.toHankaku("我思ウゆえに我アリ。ナーゼなぜ？"));
+	public void testToHankaku() {
+		assertEquals("我思ｳﾕｴﾆ我ｱﾘ｡ﾅｰｾﾞﾅｾﾞ?123*^", StringUtil.toHankaku("我思ウゆえに我アリ。ナーゼなぜ？１２３＊＾"));
+	}
+	@Test
+	public void testToHankakuNumber() {
+		assertEquals("我思ウゆえに我アリ。ナーゼなぜ？123", StringUtil.toHankakuNumber("我思ウゆえに我アリ。ナーゼなぜ？１２３"));
 	}
 
 	@Test
