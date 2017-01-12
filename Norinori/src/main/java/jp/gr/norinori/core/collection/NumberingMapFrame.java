@@ -43,7 +43,7 @@ public abstract class NumberingMapFrame<Key, Value> extends AbstractMap<Key, Val
 	 */
 	public NumberingMapFrame(int capacity) {
 		super();
-		this.keyList = new ArrayList<Key>();
+		this.keyList = new ArrayList<Key>(capacity);
 		this.data = createMap(capacity);
 	}
 
