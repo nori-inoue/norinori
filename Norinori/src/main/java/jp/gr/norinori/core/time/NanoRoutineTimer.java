@@ -1,17 +1,17 @@
 package jp.gr.norinori.core.time;
 
 /**
- * 処理時間計測(ms)
+ * 処理時間計測(ns)
  *
  * @author nori
  */
-public class RoutineTimer extends RoutineTimerFrame {
+public class NanoRoutineTimer extends RoutineTimerFrame {
 
 	// コンストラクタ===========================================================
 	/**
 	 * 処理時間計測のインスタンスを生成する
 	 */
-	public RoutineTimer() {
+	public NanoRoutineTimer() {
 		this(10);
 	}
 
@@ -20,13 +20,13 @@ public class RoutineTimer extends RoutineTimerFrame {
 	 *
 	 * @param capacity 処理対象の予想数
 	 */
-	public RoutineTimer(int capacity) {
+	public NanoRoutineTimer(int capacity) {
 		super(capacity);
 	}
 
 	@Override
 	protected long getTimer() {
-		return System.currentTimeMillis();
+		return System.nanoTime();
 	}
 
 }

@@ -13,11 +13,11 @@ import jp.gr.norinori.utility.StringUtil;
  *
  * @author nori
  */
-public class RoutineTimerTest {
+public class NanoRoutineTimerTest {
 
 	@Test
 	public void testTimer() {
-		RoutineTimer routineTimer = new RoutineTimer();
+		NanoRoutineTimer routineTimer = new NanoRoutineTimer();
 		try {
 			for (int i = 0; i < 1000; i++) {
 				routineTimer.start("test1");
@@ -39,7 +39,7 @@ public class RoutineTimerTest {
 
 	@Test
 	public void testTimer2() {
-		RoutineTimer routineTimer = new RoutineTimer();
+		NanoRoutineTimer routineTimer = new NanoRoutineTimer();
 		try {
 			int timerid = -1;
 			for (int i = 0; i < 2000; i++) {
@@ -66,12 +66,12 @@ public class RoutineTimerTest {
 	@Test
 	public void testTimer3() {
 		int loop = 10000000;
-		RoutineTimer routineTimer = new RoutineTimer();
+		NanoRoutineTimer routineTimer = new NanoRoutineTimer();
 
 		routineTimer.start("only timer");
 		for (int i = 0; i < loop; i++) {
-			long startTimer = System.currentTimeMillis();
-			long endTimer = System.currentTimeMillis();
+			long startTimer = System.nanoTime();
+			long endTimer = System.nanoTime();
 		}
 		routineTimer.stop("only timer");
 
@@ -114,7 +114,7 @@ public class RoutineTimerTest {
 	@Test
 	public void testGetTreeTimeids() throws Exception {
 		int loopCount = 10000000;
-		RoutineTimer timer = new RoutineTimer();
+		NanoRoutineTimer timer = new NanoRoutineTimer();
 
 		timer.start("root");
 		Thread.sleep(200);
@@ -171,7 +171,7 @@ public class RoutineTimerTest {
 
 	@Test
 	public void testTimer20() {
-		RoutineTimer routineTimer = new RoutineTimer();
+		NanoRoutineTimer routineTimer = new NanoRoutineTimer();
 		try {
 			for (int i = 0; i < 20; i++) {
 				routineTimer.start("test" + i);
@@ -183,7 +183,7 @@ public class RoutineTimerTest {
 	}
 
 
-	private static void logTimer(RoutineTimer timer, TreeNode<String> node, int depth) {
+	private static void logTimer(NanoRoutineTimer timer, TreeNode<String> node, int depth) {
 		String pad = "";
 		if (depth > 0) {
 			pad = String.format("%" + (depth * 2) + "s", "");
@@ -196,8 +196,8 @@ public class RoutineTimerTest {
 		}
 	}
 
-	private static String toNumber(RoutineTimer routineTimer, String timeid) {
-		return timeid + " : " + StringUtil.formatNumber(routineTimer.getTotal(timeid), "#,###") + "ms ("
+	private static String toNumber(NanoRoutineTimer routineTimer, String timeid) {
+		return timeid + " : " + StringUtil.formatNumber(routineTimer.getTotal(timeid), "#,###") + "ns ("
 				+ StringUtil.formatNumber(routineTimer.getCount(timeid), "#,###") + ")";
 	}
 }

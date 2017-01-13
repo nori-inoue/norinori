@@ -110,6 +110,7 @@ public abstract class AbstractDatabase implements Database {
 		return null;
 	}
 
+	// 抽象メソッド=============================================================
 	abstract protected String getDatabase();
 
 	abstract protected String getDriver();
