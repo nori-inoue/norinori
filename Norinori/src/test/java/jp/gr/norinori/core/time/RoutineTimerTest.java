@@ -72,6 +72,7 @@ public class RoutineTimerTest {
 		for (int i = 0; i < loop; i++) {
 			long startTimer = System.currentTimeMillis();
 			long endTimer = System.currentTimeMillis();
+			endTimer = endTimer - startTimer;
 		}
 		routineTimer.stop("only timer");
 

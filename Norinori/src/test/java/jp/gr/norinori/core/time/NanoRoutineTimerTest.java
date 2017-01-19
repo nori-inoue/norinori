@@ -72,6 +72,7 @@ public class NanoRoutineTimerTest {
 		for (int i = 0; i < loop; i++) {
 			long startTimer = System.nanoTime();
 			long endTimer = System.nanoTime();
+			endTimer = endTimer - startTimer;
 		}
 		routineTimer.stop("only timer");
 
