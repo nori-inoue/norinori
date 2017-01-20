@@ -44,7 +44,7 @@ public class VelocityTemplateTest extends NorinoriTestFrame {
 
 			textTemplate.output();
 
-			assertEquals("てきすと\r\nてきすと２\r\n", sw.toString());
+			assertEquals("てきすと\nてきすと２\n", sw.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
