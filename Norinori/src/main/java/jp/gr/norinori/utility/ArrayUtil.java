@@ -428,6 +428,97 @@ public final class ArrayUtil {
 	}
 
 	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static boolean[] reverse(boolean[] array) {
+		return (boolean[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static byte[] reverse(byte[] array) {
+		return (byte[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static char[] reverse(char[] array) {
+		return (char[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static double[] reverse(double[] array) {
+		return (double[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static float[] reverse(float[] array) {
+		return (float[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static int[] reverse(int[] array) {
+		return (int[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static long[] reverse(long[] array) {
+		return (long[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	public static short[] reverse(short[] array) {
+		return (short[]) reverseObject(array);
+	}
+
+	/**
+	 * 配列を反転する
+	 *
+	 * @param array 配列
+	 * @return 反転した配列
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T[] reverse(T[] array) {
+		return (T[]) reverseObject(array);
+	}
+
+	/**
 	 * リストを配列に変換する
 	 *
 	 * @param <T> 要素の型
@@ -556,6 +647,28 @@ public final class ArrayUtil {
 			for (int i = 0; i < addArrayLength; i++) {
 				Object addObject = Array.get(addArray, i);
 				Array.set(newArray, arrayLength + i, addObject);
+			}
+		}
+		return newArray;
+	}
+
+	/**
+	 * 指定した配列の位置から指定した要素数分の配列を作成する
+	 *
+	 * @param <T> 要素の型
+	 * @param array 配列
+	 * @return 複製した配列
+	 */
+	private static Object reverseObject(Object array) {
+		if (array == null) {
+			return null;
+		}
+		int arrayLength = Array.getLength(array);
+
+		Object newArray = Array.newInstance(array.getClass().getComponentType(), arrayLength);
+		if (newArray != null) {
+			for (int i = 0; i < arrayLength; i++) {
+				Array.set(newArray, i, Array.get(array, arrayLength - i - 1));
 			}
 		}
 		return newArray;

@@ -165,4 +165,16 @@ public class ArrayUtilTest extends NorinoriTestFrame {
 
 		assertNull(zeroArray);
 	}
+
+	@Test
+	public void testReverseArray() {
+		byte[] orgArray = new byte[] { (byte) 1, (byte) 2, (byte) 4, (byte) 6 };
+		byte[] expectArray = new byte[] { (byte) 6, (byte) 4, (byte) 2, (byte) 1 };
+
+		byte[] array = ArrayUtil.reverse(orgArray);
+
+		for (int i = 0; i < expectArray.length; i++) {
+			assertEquals(expectArray[i], array[i]);
+		}
+	}
 }
