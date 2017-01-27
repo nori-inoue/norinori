@@ -653,11 +653,11 @@ public final class ArrayUtil {
 	}
 
 	/**
-	 * 指定した配列の位置から指定した要素数分の配列を作成する
+	 * 指定した配列の各要素を反転した配列を作成する
 	 *
 	 * @param <T> 要素の型
 	 * @param array 配列
-	 * @return 複製した配列
+	 * @return 反転した配列
 	 */
 	private static Object reverseObject(Object array) {
 		if (array == null) {
