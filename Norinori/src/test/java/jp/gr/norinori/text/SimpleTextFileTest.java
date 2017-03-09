@@ -30,14 +30,14 @@ public class SimpleTextFileTest extends NorinoriTestFrame {
         expected.append("２行目").append("\n");
 
         try {
-            textFile.create();
+            textFile.open();
             assertEquals(expected.toString(), textFile.getContents());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         } finally {
             try {
-                textFile.destroy();
+                textFile.close();
             } catch (Exception ignore) {
             }
         }

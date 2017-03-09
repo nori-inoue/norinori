@@ -32,7 +32,7 @@ public class CsvFileTest extends NorinoriTestFrame {
         expected.append("２行目").append("\n");
 
         try {
-            textFile.create();
+            textFile.open();
 
         	List<String> values = new ArrayList<String>();
         	values.add("テスト");
@@ -53,7 +53,7 @@ public class CsvFileTest extends NorinoriTestFrame {
             fail();
         } finally {
             try {
-                textFile.destroy();
+                textFile.close();
             } catch (Exception ignore) {
             }
         }

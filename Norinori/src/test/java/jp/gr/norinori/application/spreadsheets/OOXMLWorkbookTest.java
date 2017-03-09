@@ -29,7 +29,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 	public void testGetCellValue() {
 		try {
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			Sheet sheet = spreadsheets.getSheetAt(0);
 			Row row = sheet.getRowAt(0);
@@ -52,7 +52,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			// System.out.println(cell.getValue());
 			// }
 			// }
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -65,24 +65,24 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			createDirectory(TEMP_PATH);
 
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			Sheet sheet = spreadsheets.getSheetAt(0);
 			Row row = sheet.getRowAt(0);
 			Cell cell = row.getCellAt(1);
 			cell.setValue("ほげほげ");
 			spreadsheets.write(TEMP_PATH + "/test1.xlsx");
-			spreadsheets.destroy();
+			spreadsheets.close();
 
 			spreadsheets = new OOXMLWorkbook(TEMP_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			sheet = spreadsheets.getSheetAt(0);
 			row = sheet.getRowAt(0);
 			cell = row.getCellAt(1);
 			assertEquals("ほげほげ", cell.getValue());
 
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -96,7 +96,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 
 			String[] expectedSheet = new String[] { "Sheet1", "Sheet4", "Sheet2", "Sheet3" };
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			spreadsheets.addBeforeSheet("Sheet2", "Sheet4");
 
@@ -107,7 +107,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			}
 
 			spreadsheets.write(TEMP_PATH + "/test1.xlsx");
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -121,7 +121,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 
 			String[] expectedSheet = new String[] { "Sheet1", "Sheet2", "Sheet4", "Sheet3" };
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			spreadsheets.addAfterSheet("Sheet2", "Sheet4");
 
@@ -132,7 +132,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			}
 
 			spreadsheets.write(TEMP_PATH + "/test1.xlsx");
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -146,7 +146,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 
 			String[] expectedSheet = new String[] { "Sheet1", "Sheet4", "Sheet2", "Sheet3" };
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			spreadsheets.cloneBeforeSheet("Sheet2", "Sheet1", "Sheet4");
 
@@ -157,7 +157,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			}
 
 			spreadsheets.write(TEMP_PATH + "/test1.xls");
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -171,7 +171,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 
 			String[] expectedSheet = new String[] { "Sheet1", "Sheet2", "Sheet4", "Sheet3" };
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			spreadsheets.cloneAfterSheet("Sheet2", "Sheet1", "Sheet4");
 
@@ -182,7 +182,7 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			}
 
 			spreadsheets.write(TEMP_PATH + "/test1.xlsx");
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
@@ -208,13 +208,13 @@ public class OOXMLWorkbookTest extends NorinoriTestFrame {
 			table.addRecord(record);
 
 			Spreadsheets spreadsheets = new OOXMLWorkbook(RESOURCE_PATH + "/test1.xlsx");
-			spreadsheets.create();
+			spreadsheets.open();
 
 			Sheet sheet = spreadsheets.getSheetAt(1);
 			sheet.loadTable(table);
 
 			spreadsheets.write(TEMP_PATH + "/test1.xlsx");
-			spreadsheets.destroy();
+			spreadsheets.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();

@@ -198,23 +198,18 @@ public abstract class AbstractDatabaseConnection implements DatabaseConnection {
 	}
 
 	@Override
-	public void create() throws Exception {
+	public void open() throws Exception {
 		// no process
 	}
 
 	@Override
-	public <T> void create(T target) throws Exception {
+	public <T> void open(T target) throws Exception {
 		// no process
 	}
 
 	@Override
 	public boolean isLiving() throws Exception {
 		return !getConnection().isClosed();
-	}
-
-	@Override
-	public void destroy() throws Exception {
-		close();
 	}
 
 	/*

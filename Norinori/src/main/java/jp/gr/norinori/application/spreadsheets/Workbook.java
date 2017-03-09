@@ -289,15 +289,15 @@ public class Workbook extends ApplicationFileFrame implements Spreadsheets {
 	 * (非 Javadoc)
 	 * @see jp.gr.norinori.core.flow.LifeCycle#create()
 	 */
-	public void create() throws Exception {
-		create(this.inputStream);
+	public void open() throws Exception {
+		open(this.inputStream);
 	}
 
 	/*
 	 * (非 Javadoc)
 	 * @see jp.gr.norinori.core.flow.LifeCycle#create(java.lang.Object)
 	 */
-	public <T> void create(T inputStream) throws Exception {
+	public <T> void open(T inputStream) throws Exception {
 		if (inputStream != null) {
 			POIFSFileSystem poifsFileSystem = new POIFSFileSystem((InputStream) inputStream);
 			this.hssfWorkbook = new HSSFWorkbook(poifsFileSystem);
@@ -321,7 +321,7 @@ public class Workbook extends ApplicationFileFrame implements Spreadsheets {
 	 * (非 Javadoc)
 	 * @see jp.gr.norinori.core.flow.LifeCycle#destroy()
 	 */
-	public void destroy() throws Exception {
+	public void close() throws Exception {
 		this.hssfWorkbook = null;
 		this.sheetList = null;
 	}

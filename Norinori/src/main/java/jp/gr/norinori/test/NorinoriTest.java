@@ -42,14 +42,14 @@ public class NorinoriTest extends Assert {
 		try {
 			isExpectedLiving = expected.isLiving();
 			if (!isExpectedLiving) {
-				expected.create();
+				expected.open();
 			}
 			String expectedContents = expected.getContents();
 
 			try {
 				isActualLiving = actual.isLiving();
 				if (!isActualLiving) {
-					actual.create();
+					actual.open();
 				}
 				String actualContents = actual.getContents();
 
@@ -68,13 +68,13 @@ public class NorinoriTest extends Assert {
 		} finally {
 			if (!isExpectedLiving) {
 				try {
-					expected.destroy();
+					expected.close();
 				} catch (Exception ignore) {
 				}
 			}
 			if (!isActualLiving) {
 				try {
-					actual.destroy();
+					actual.close();
 				} catch (Exception ignore) {
 				}
 			}

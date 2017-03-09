@@ -19,11 +19,11 @@ public class SimpleApplicationFile extends ApplicationFileFrame {
 	}
 
 	// メソッド=================================================================
-	public void create() throws Exception {
+	public void open() throws Exception {
 		this.isLiving = true;
 	}
 
-	public <T> void create(T target) throws Exception {
+	public <T> void open(T target) throws Exception {
 		this.isLiving = true;
 	}
 
@@ -31,7 +31,7 @@ public class SimpleApplicationFile extends ApplicationFileFrame {
 		return this.isLiving;
 	}
 
-	public void destroy() throws Exception {
+	public void close() throws Exception {
 		this.isLiving = false;
 	}
 
