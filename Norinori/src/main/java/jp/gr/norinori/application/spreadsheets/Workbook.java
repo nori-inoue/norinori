@@ -287,7 +287,7 @@ public class Workbook extends ApplicationFileFrame implements Spreadsheets {
 
 	/*
 	 * (非 Javadoc)
-	 * @see jp.gr.norinori.core.flow.LifeCycle#create()
+	 * @see jp.gr.norinori.core.flow.LifeCycle#open()
 	 */
 	public void open() throws Exception {
 		open(this.inputStream);
@@ -295,7 +295,7 @@ public class Workbook extends ApplicationFileFrame implements Spreadsheets {
 
 	/*
 	 * (非 Javadoc)
-	 * @see jp.gr.norinori.core.flow.LifeCycle#create(java.lang.Object)
+	 * @see jp.gr.norinori.core.flow.LifeCycle#open(java.lang.Object)
 	 */
 	public <T> void open(T inputStream) throws Exception {
 		if (inputStream != null) {
@@ -319,7 +319,7 @@ public class Workbook extends ApplicationFileFrame implements Spreadsheets {
 
 	/*
 	 * (非 Javadoc)
-	 * @see jp.gr.norinori.core.flow.LifeCycle#destroy()
+	 * @see jp.gr.norinori.core.flow.LifeCycle#close()
 	 */
 	public void close() throws Exception {
 		this.hssfWorkbook = null;

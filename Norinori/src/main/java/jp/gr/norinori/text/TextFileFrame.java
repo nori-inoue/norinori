@@ -48,7 +48,7 @@ public abstract class TextFileFrame extends ApplicationFileFrame implements Text
 
 	/*
 	 * (非 Javadoc)
-	 * @see jp.gr.norinori.core.flow.LifeCycle#create()
+	 * @see jp.gr.norinori.core.flow.LifeCycle#open()
 	 */
 	public void open() throws Exception {
 		open(getFile());
@@ -56,7 +56,7 @@ public abstract class TextFileFrame extends ApplicationFileFrame implements Text
 
 	/*
 	 * (非 Javadoc)
-	 * @see jp.gr.norinori.core.flow.LifeCycle#create(java.lang.Object)
+	 * @see jp.gr.norinori.core.flow.LifeCycle#open(java.lang.Object)
 	 */
 	public <T> void open(T target) throws Exception {
 		File file = null;
@@ -89,7 +89,7 @@ public abstract class TextFileFrame extends ApplicationFileFrame implements Text
 
 	/*
 	 * (非 Javadoc)
-	 * @see jp.gr.norinori.core.flow.LifeCycle#destroy()
+	 * @see jp.gr.norinori.core.flow.LifeCycle#close()
 	 */
 	public void close() throws Exception {
 		this.reader.close();
