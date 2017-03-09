@@ -51,6 +51,19 @@ public class StringUtil {
 	}
 
 	/**
+	 * 先頭大文字に変換する
+	 *
+	 * @param str 文字
+	 * @return 先頭大文字に変換した文字
+	 */
+	public static String capitalize(String str) {
+		if (StringUtil.isEmpty(str)) {
+			return str;
+		}
+		return str.substring(0, 1).toUpperCase() + str.substring(1);
+	}
+
+	/**
 	 * 空文字を判定する。
 	 *
 	 * @param str 文字

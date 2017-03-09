@@ -103,7 +103,17 @@ public class StringUtilTest {
 		assertEquals("abcAbc", StringUtil.camelize("Abc_abc"));
 		assertEquals("abcAbc", StringUtil.camelize("abc_Abc"));
 
-		assertNull(StringUtil.pascalize(null));
+		assertNull(StringUtil.camelize(null));
+	}
+
+	@Test
+	public void testCapitalize() {
+		assertEquals("Abcabc", StringUtil.capitalize("abcabc"));
+		assertEquals("Abc_abc", StringUtil.capitalize("abc_abc"));
+		assertEquals("Abc_abc", StringUtil.capitalize("Abc_abc"));
+		assertEquals("Abc_Abc", StringUtil.capitalize("abc_Abc"));
+
+		assertNull(StringUtil.capitalize(null));
 	}
 
 	@Test
