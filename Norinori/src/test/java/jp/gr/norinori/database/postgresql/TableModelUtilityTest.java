@@ -11,9 +11,9 @@ import org.junit.Test;
 import jp.gr.norinori.database.DatabaseConnection;
 import jp.gr.norinori.database.Product;
 import jp.gr.norinori.database.TableModelUtility;
-import jp.gr.norinori.database.mysql.MySql;
 import jp.gr.norinori.test.NorinoriTestFrame;
 
+@Ignore
 public class TableModelUtilityTest extends NorinoriTestFrame {
 
 	// 定数=====================================================================
@@ -25,7 +25,7 @@ public class TableModelUtilityTest extends NorinoriTestFrame {
 
 	}
 
-	@Test
+	@Ignore
 	public void testToModels() {
 		PostgreSql me = new PostgreSql();
 		me.configure(RESOURCE_PATH + "/db.properties");
@@ -56,7 +56,7 @@ public class TableModelUtilityTest extends NorinoriTestFrame {
 		}
 	}
 
-	@Test
+	@Ignore
 	public void testLoadModel() {
 		PostgreSql me = new PostgreSql();
 		me.configure(RESOURCE_PATH + "/db.properties");

@@ -11,29 +11,33 @@ public class PostgresqlColumn implements DatabaseColumn {
 	// メンバ===================================================================
 	public String type;
 	public String name;
+	public int size;
 	public String comment;
-	public String key;
-	public String extra;
+	public boolean isAutoIncrement = false;
+	public boolean isPrimaryKey = false;
 
 	// メソッド=================================================================
 	public String getType() {
-		return type;
+		return this.type;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
+	}
+
+	public int getSize() {
+		return this.size;
 	}
 
 	public String getComment() {
-		return comment;
+		return this.comment;
 	}
 
 	public boolean isAutoIncrement() {
-		return (extra != null && extra.equals("auto_increment"));
+		return this.isAutoIncrement;
 	}
 
 	public boolean isPrimaryKey() {
-		return (key != null && key.equals("PRI"));
+		return this.isPrimaryKey;
 	}
-
 }

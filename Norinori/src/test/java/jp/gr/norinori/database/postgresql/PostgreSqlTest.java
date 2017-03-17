@@ -6,11 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+import jp.gr.norinori.database.DatabaseColumn;
 import jp.gr.norinori.database.DatabaseConnection;
+import jp.gr.norinori.database.DatabaseTableInformation;
 import jp.gr.norinori.test.NorinoriTestFrame;
 
+@Ignore
 public class PostgreSqlTest extends NorinoriTestFrame {
 
 	// 定数=====================================================================
@@ -22,7 +26,7 @@ public class PostgreSqlTest extends NorinoriTestFrame {
 
 	}
 
-	@Test
+	@Ignore
 	public void testRead() {
 		PostgreSql me = new PostgreSql();
 		me.configure(RESOURCE_PATH + "/db.properties");
@@ -55,4 +59,29 @@ public class PostgreSqlTest extends NorinoriTestFrame {
 		}
 	}
 
+	@Ignore
+	public void testTableInformation() {
+		PostgreSql me = new PostgreSql();
+		me.configure(RESOURCE_PATH + "/db.properties");
+
+		DatabaseConnection con = me.createConnection("postgres");
+
+		// テーブル照会実行
+		try {
+			DatabaseTableInformation tableInfo = con.createTableInformation("product");
+
+			for (DatabaseColumn column : tableInfo.getColumns()) {
+				System.out.println("NAME：" + column.getName());
+				System.out.println("SIZE：" + column.getSize());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		} finally {
+			try {
+				con.close();
+			} catch (SQLException ignore) {
+			}
+		}
+	}
 }

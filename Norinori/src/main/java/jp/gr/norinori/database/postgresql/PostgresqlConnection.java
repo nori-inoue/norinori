@@ -32,6 +32,8 @@ public class PostgresqlConnection extends AbstractDatabaseConnection {
 	 * @see
 	 * jp.gr.norinori.database.DatabaseConnection#createTableInformation(java
 	 * .lang.String)
+	 *
+	 * http://qiita.com/aiyu427/items/26d82811fc6c8e301b94
 	 */
 	@Override
 	public DatabaseTableInformation createTableInformation(String tableName) throws Exception {
@@ -40,7 +42,39 @@ public class PostgresqlConnection extends AbstractDatabaseConnection {
 		Statement stmt = null;
 		try {
 			stmt = getConnection().createStatement();
-			String sql = "SHOW FULL COLUMNS FROM `" + tableName + "`";
+			String sql = "SELECT tbl.colname, tbl.description, tbl.typname, tbl.adsrc, tbl.size";
+			sql += " FROM";
+			sql += "     (";
+			sql += "         SELECT";
+			sql += "             cls.oid,";
+			sql += "             attr.attnum AS idx,";
+			sql += "             attr.attname AS colname,";
+			sql += "             attr.atttypmod - 4 AS size,";
+			sql += "             typ.typname,";
+			sql += "             adef.adsrc,";
+			sql += "             pd.description";
+			sql += "         FROM pg_class cls";
+			sql += "         INNER JOIN pg_attribute attr ON (cls.oid = attr.attrelid)";
+			sql += "         INNER JOIN pg_type typ ON (attr.atttypid = typ.oid)";
+			sql += "         LEFT JOIN pg_description pd ON (pd.objoid = cls.oid ";
+			sql += "                AND pd.objoid = attr.attrelid";
+			sql += "                AND pd.objsubid = attr.attnum";
+			sql += "         )";
+			sql += "         LEFT OUTER JOIN pg_attrdef adef ON (cls.oid = adef.adrelid AND attr.attnum = adef.adnum)";
+			sql += "         INNER JOIN pg_namespace nsp ON (cls.relnamespace = nsp.oid AND nsp.nspname = 'public')";
+			sql += "         INNER JOIN pg_user usr ON (cls.relowner = usr.usesysid)";
+			sql += "         WHERE";
+			sql += "             cls.relkind = 'r'";
+			sql += "             AND attr.attnum >= 0";
+			sql += "             AND attr.attisdropped IS NOT TRUE";
+			sql += "             AND typ.typisdefined";
+			sql += "             AND cls.relname = '" + tableName + "'";
+			sql += "     ) AS tbl";
+			sql += " LEFT JOIN pg_description";
+			sql += " ON tbl.oid = pg_description.objoid ";
+			sql += " AND pg_description.objsubid=0";
+			sql += " ORDER BY oid, idx";
+
 			ResultSet rs = stmt.executeQuery(sql);
 
 			// テーブル照会結果を出力
@@ -49,28 +83,30 @@ public class PostgresqlConnection extends AbstractDatabaseConnection {
 
 			while (rs.next()) {
 				PostgresqlColumn column = new PostgresqlColumn();
-				column.name = rs.getString("Field");
-				column.comment = rs.getString("Comment");
-				column.extra = rs.getString("Extra");
-				column.key = rs.getString("Key");
+				column.name = rs.getString("colname");
+				column.comment = rs.getString("description");
+				if (rs.getInt("size") > 0) {
+					column.size = rs.getInt("size");
+				}
 
-				String type = rs.getString("Type");
+				String type = rs.getString("typname");
 				if (type.indexOf("int") == 0) {
 					column.type = "int";
-				} else if (type.indexOf("tinyint") == 0) {
-					column.type = "int";
-				} else if (type.indexOf("date") == 0) {
+				} else if (type.indexOf("time") == 0) {
 					column.type = "Timestamp";
 				} else {
 					column.type = "String";
 				}
 
+				String def = rs.getString("adsrc");
+				if (def != null && def.indexOf("nextval") == 0) {
+					column.isAutoIncrement = true;
+				}
+
 				if (column.isAutoIncrement()) {
 					tableInformation.setHasAutoIncrement(true);
 				}
-				if (column.isPrimaryKey()) {
-					tableInformation.setHasPrimaryKey(true);
-				}
+
 				tableInformation.addColumn(column);
 			}
 			// データベースのクローズ
@@ -78,10 +114,12 @@ public class PostgresqlConnection extends AbstractDatabaseConnection {
 			stmt.close();
 
 			stmt = getConnection().createStatement();
-			sql = "SHOW TABLE STATUS FROM " + getDatabaseName() + " where name = '" + tableName + "'";
+			sql = "SELECT pg_description.description FROM pg_description";
+			sql += " INNER JOIN pg_stat_user_tables ON pg_stat_user_tables.relid=pg_description.objoid";
+			sql += " WHERE pg_stat_user_tables.relname = '" + tableName + "' AND pg_description.objsubid=0";
 			rs = stmt.executeQuery(sql);
 			if (rs.next()) {
-				tableInformation.setComment(rs.getString("Comment"));
+				tableInformation.setComment(rs.getString("description"));
 			}
 
 			return tableInformation;

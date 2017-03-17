@@ -1,6 +1,5 @@
 package jp.gr.norinori.database;
 
-
 /**
  * データベースカラムインタフェース
  *
@@ -20,6 +19,13 @@ public interface DatabaseColumn {
 	 * @return カラム名
 	 */
 	public String getName();
+
+	/**
+	 * サイズを取得する。
+	 *
+	 * @return サイズ
+	 */
+	public int getSize();
 
 	/**
 	 * コメントを取得する。

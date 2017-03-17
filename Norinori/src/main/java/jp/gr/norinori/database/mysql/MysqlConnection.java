@@ -8,6 +8,7 @@ import java.sql.Statement;
 import jp.gr.norinori.database.AbstractDatabaseConnection;
 import jp.gr.norinori.database.Database;
 import jp.gr.norinori.database.DatabaseTableInformation;
+import jp.gr.norinori.utility.StringUtil;
 
 /**
  * MySQLコネクション
@@ -51,8 +52,16 @@ public class MysqlConnection extends AbstractDatabaseConnection {
 				MysqlColumn column = new MysqlColumn();
 				column.name = rs.getString("Field");
 				column.comment = rs.getString("Comment");
-				column.extra = rs.getString("Extra");
-				column.key = rs.getString("Key");
+				String extra = rs.getString("Extra");
+				String key = rs.getString("Key");
+
+				if (extra != null && extra.equals("auto_increment")) {
+					column.isAutoIncrement = true;
+				}
+
+				if (key != null && key.equals("auto_increment")) {
+					column.isPrimaryKey = true;
+				}
 
 				String type = rs.getString("Type");
 				if (type.indexOf("int") == 0) {
@@ -65,6 +74,15 @@ public class MysqlConnection extends AbstractDatabaseConnection {
 					column.type = "String";
 				}
 
+				if (!StringUtil.isEmpty(type)) {
+					String[] types = type.split("\\(");
+					if (types != null && types.length > 1) {
+						String[] types2 = types[1].split("\\)");
+						if (StringUtil.isNumeric(types2[0])) {
+							column.size = Integer.valueOf(types2[0]);
+						}
+					}
+				}
 				if (column.isAutoIncrement()) {
 					tableInformation.setHasAutoIncrement(true);
 				}
