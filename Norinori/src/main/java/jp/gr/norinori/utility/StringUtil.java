@@ -237,6 +237,58 @@ public class StringUtil {
 		return s.toString();
 	}
 
+	/**
+	 * 指定した文字列以前を削除する
+	 *
+	 * @param str 文字
+	 * @param target 探索する文字列
+	 * @param isInclude true:探索する文字を含んで削除 false:探索する文字を含まず削除
+	 * @return 指定した文字列からの文字列 cutHead("1234", "2") = "234"
+	 */
+	public static String cutHead(String str, String target, boolean isInclude) {
+		if (str == null) {
+			return null;
+		}
+		if (target == null) {
+			return str;
+		}
+
+		int index = str.indexOf(target);
+		if (index > 0) {
+			if (isInclude) {
+				index += target.length();
+			}
+			return str.substring(index);
+		}
+		return str;
+	}
+
+	/**
+	 * 指定した文字列以降を削除する
+	 *
+	 * @param str 文字
+	 * @param target 探索する文字列
+	 * @param isInclude true:探索する文字を含んで削除 false:探索する文字を含まず削除
+	 * @return 指定した文字列からの文字列 cutHead("1234", "2") = "234"
+	 */
+	public static String cutTail(String str, String target, boolean isInclude) {
+		if (str == null) {
+			return null;
+		}
+		if (target == null) {
+			return str;
+		}
+
+		int index = str.indexOf(target);
+		if (index > 0) {
+			if (!isInclude) {
+				index += target.length();
+			}
+			return str.substring(0, index);
+		}
+		return str;
+	}
+
 	// キャメライズ
 	private static String camelize(String str, boolean upperFirstLetter) {
 		if (StringUtil.isEmpty(str)) {

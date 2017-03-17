@@ -124,4 +124,25 @@ public class StringUtilTest {
 		assertTrue(StringUtil.isEmpty(null));
 
 	}
+
+
+	@Test
+	public void testCutHead() {
+		assertEquals("bcd", StringUtil.cutHead("abcabcd", "ca", true));
+		assertEquals("cabcd", StringUtil.cutHead("abcabcd", "ca", false));
+		assertEquals("abcabcd", StringUtil.cutHead("abcabcd", null, false));
+
+		assertNull(StringUtil.cutHead(null, "ca", true));
+
+	}
+
+	@Test
+	public void testCutTail() {
+		assertEquals("ab", StringUtil.cutTail("abcabcd", "ca", true));
+		assertEquals("abca", StringUtil.cutTail("abcabcd", "ca", false));
+		assertEquals("abcabcd", StringUtil.cutTail("abcabcd", null, false));
+
+		assertNull(StringUtil.cutTail(null, "ca", true));
+
+	}
 }
