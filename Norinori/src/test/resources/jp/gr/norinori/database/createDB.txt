@@ -26,3 +26,54 @@ ENGINE=InnoDB
 
 INSERT INTO `point`.`product` (`name`, `point`) VALUES ('Product1', 100);
 INSERT INTO `point`.`product` (`name`, `point`) VALUES ('Product2', 200);
+
+
+/* PostgreSQL */
+
+CREATE DATABASE point
+    WITH 
+    OWNER = root
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Japanese_Japan.932'
+    LC_CTYPE = 'Japanese_Japan.932'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+
+CREATE USER root WITH
+  LOGIN
+  NOSUPERUSER
+  INHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION;
+
+CREATE TABLE public.product
+(
+    productid integer NOT NULL DEFAULT nextval('product_productid_seq'::regclass),
+    name character varying(50) COLLATE pg_catalog."default",
+    categoryid integer,
+    imageurl character varying(50) COLLATE pg_catalog."default",
+    point integer,
+    features character varying(50) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    createtime timestamp with time zone,
+    createuser integer,
+    createip character varying(50) COLLATE pg_catalog."default",
+    createapplication character varying(50) COLLATE pg_catalog."default",
+    modifytime timestamp with time zone,
+    modifyuser integer,
+    modifyip character varying(50) COLLATE pg_catalog."default",
+    modifyapplication character varying(50) COLLATE pg_catalog."default",
+    CONSTRAINT product_pkey PRIMARY KEY (productid)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.product
+    OWNER to root;
+
+INSERT INTO product (name, point) VALUES ('Product1', 100);
+INSERT INTO product (name, point) VALUES ('Product2', 200);
+
