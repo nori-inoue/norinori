@@ -5,6 +5,7 @@ import jp.gr.norinori.database.DatabaseColumn;
 public class MysqlColumn implements DatabaseColumn {
 	// メンバ===================================================================
 	public String type;
+	public Class<?> javaType;
 	public String name;
 	public int size;
 	public String comment;
@@ -14,6 +15,10 @@ public class MysqlColumn implements DatabaseColumn {
 	// メソッド=================================================================
 	public String getType() {
 		return this.type;
+	}
+
+	public Class<?> getJavaType() {
+		return this.javaType;
 	}
 
 	public String getName() {

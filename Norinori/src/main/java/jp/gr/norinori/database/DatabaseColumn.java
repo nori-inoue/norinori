@@ -14,6 +14,13 @@ public interface DatabaseColumn {
 	public String getType();
 
 	/**
+	 * タイプをJava型で取得する
+	 *
+	 * @return Java型
+	 */
+	public Class<?> getJavaType();
+
+	/**
 	 * カラム名を取得する
 	 *
 	 * @return カラム名

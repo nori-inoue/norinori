@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import jp.gr.norinori.database.AbstractDatabaseConnection;
 import jp.gr.norinori.database.Database;
@@ -64,14 +65,15 @@ public class MysqlConnection extends AbstractDatabaseConnection {
 				}
 
 				String type = rs.getString("Type");
+				column.type = type;
 				if (type.indexOf("int") == 0) {
-					column.type = "int";
+					column.javaType = int.class;
 				} else if (type.indexOf("tinyint") == 0) {
-					column.type = "int";
+					column.javaType = int.class;
 				} else if (type.indexOf("date") == 0) {
-					column.type = "Timestamp";
+					column.javaType = Timestamp.class;
 				} else {
-					column.type = "String";
+					column.javaType = String.class;
 				}
 
 				if (!StringUtil.isEmpty(type)) {

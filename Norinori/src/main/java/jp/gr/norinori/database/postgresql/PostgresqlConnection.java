@@ -1,9 +1,11 @@
 package jp.gr.norinori.database.postgresql;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import jp.gr.norinori.database.AbstractDatabaseConnection;
 import jp.gr.norinori.database.Database;
@@ -90,12 +92,19 @@ public class PostgresqlConnection extends AbstractDatabaseConnection {
 				}
 
 				String type = rs.getString("typname");
+				column.type = type;
 				if (type.indexOf("int") == 0) {
-					column.type = "int";
+					column.javaType = int.class;
+				} else if (type.indexOf(",numeric") == 0) {
+					column.javaType = int.class;
+				} else if (type.indexOf("date") == 0) {
+					column.javaType = Date.class;
 				} else if (type.indexOf("time") == 0) {
-					column.type = "Timestamp";
+					column.javaType = Timestamp.class;
+				} else if (type.indexOf("bytea") == 0) {
+					column.javaType = byte[].class;
 				} else {
-					column.type = "String";
+					column.javaType = String.class;
 				}
 
 				String def = rs.getString("adsrc");
