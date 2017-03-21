@@ -51,7 +51,10 @@ public class PostgresqlConnection extends AbstractDatabaseConnection {
 			sql += "             cls.oid,";
 			sql += "             attr.attnum AS idx,";
 			sql += "             attr.attname AS colname,";
-			sql += "             attr.atttypmod - 4 AS size,";
+			sql += "             CASE WHEN attr.atttypmod > 0 THEN CASE typ.typname";
+			sql += "                  WHEN 'numeric' THEN (attr.atttypmod - 4) / 65536";
+			sql += "                  WHEN 'numeric' THEN (attr.atttypmod - 4) / 65536";
+			sql += "                  ELSE attr.atttypmod - 4 END END AS size,";
 			sql += "             typ.typname,";
 			sql += "             adef.adsrc,";
 			sql += "             pd.description";
