@@ -60,6 +60,10 @@ public class ExcelRow implements Row {
 	 * @see jp.gr.norinori.application.spreadsheets.Row#getCellAt(int)
 	 */
 	public Cell getCellAt(int columnnumber) {
+		if (this.hssfRow == null) {
+			return null;
+		}
+
 		if (this.cellList.size() <= columnnumber) {
 			for (int c = this.cellList.size(); c <= columnnumber; c++) {
 				this.cellList.add(createExcelCell(this.hssfRow.createCell(c), c));
