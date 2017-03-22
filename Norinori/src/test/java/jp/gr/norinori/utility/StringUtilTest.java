@@ -1,11 +1,10 @@
 package jp.gr.norinori.utility;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-
-import jp.gr.norinori.utility.StringUtil;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 
 import org.junit.Test;
 
@@ -143,6 +142,14 @@ public class StringUtilTest {
 		assertEquals("abcabcd", StringUtil.cutTail("abcabcd", null, false));
 
 		assertNull(StringUtil.cutTail(null, "ca", true));
+
+	}
+
+	@Test
+	public void testSplitEnclosure() {
+		assertArrayEquals(new String[]{"abc", "123"}, StringUtil.splitEnclosure("abc[123]", "[", "]"));
+
+		assertNull(StringUtil.splitEnclosure(null, "[", "]"));
 
 	}
 }

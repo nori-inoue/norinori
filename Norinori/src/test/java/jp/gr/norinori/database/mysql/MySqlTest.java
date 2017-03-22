@@ -209,8 +209,9 @@ public class MySqlTest extends NorinoriTestFrame {
 			DatabaseTableInformation tableInfo = con.createTableInformation("product");
 
 			for (DatabaseColumn column : tableInfo.getColumns()) {
-				System.out.println("NAME：" + column.getName());
-				System.out.println("SIZE：" + column.getSize());
+				System.out.print("NAME：" + column.getName());
+				System.out.print(" TYPE：" + column.getType());
+				System.out.println(" SIZE：" + column.getSize());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -65,7 +65,6 @@ public class MysqlConnection extends AbstractDatabaseConnection {
 				}
 
 				String type = rs.getString("Type");
-				column.type = type;
 				if (type.indexOf("int") == 0) {
 					column.javaType = int.class;
 				} else if (type.indexOf("tinyint") == 0) {
@@ -77,12 +76,14 @@ public class MysqlConnection extends AbstractDatabaseConnection {
 				}
 
 				if (!StringUtil.isEmpty(type)) {
-					String[] types = type.split("\\(");
+					String[] types = StringUtil.splitEnclosure(type, "(", ")");
 					if (types != null && types.length > 1) {
-						String[] types2 = types[1].split("\\)");
-						if (StringUtil.isNumeric(types2[0])) {
-							column.size = Integer.valueOf(types2[0]);
+						if (StringUtil.isNumeric(types[1])) {
+							column.size = Integer.valueOf(types[1]);
 						}
+						column.type = types[0];
+					} else {
+						column.type = type;
 					}
 				}
 				if (column.isAutoIncrement()) {

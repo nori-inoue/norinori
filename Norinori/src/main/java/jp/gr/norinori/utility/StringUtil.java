@@ -93,6 +93,37 @@ public class StringUtil {
 	}
 
 	/**
+	 * 指定した開始から終端文字までの文字を分割する。分割できない場合はnull
+	 *
+	 * @param str 文字
+	 * @param openString 開始文字
+	 * @param closeString 終端文字
+	 * @return 分割された文字配列 splitEnclosure("abc[123]", "[", "]") ⇒ [0]:abc [1]:123
+	 */
+	public static String[] splitEnclosure(String str, String openString, String closeString) {
+		if (str == null) {
+			return null;
+		}
+
+		String[] result = new String[2];
+		int openIndex = str.indexOf(openString);
+		if (openIndex == 0) {
+			result[0] = "";
+		} else if (openIndex > 0) {
+			result[0] = str.substring(0, openIndex);
+		} else {
+			return null;
+		}
+
+		int closeIndex = str.indexOf(closeString, openIndex + 1);
+		if (closeIndex >= 0) {
+			result[1] = str.substring(openIndex + 1, closeIndex);
+		}
+
+		return result;
+	}
+
+	/**
 	 * 数字判定を行う。
 	 *
 	 * @param numberString
