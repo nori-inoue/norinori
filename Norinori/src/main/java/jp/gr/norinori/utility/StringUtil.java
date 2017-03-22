@@ -85,7 +85,7 @@ public class StringUtil {
 	 */
 	public static String join(List<? extends Object> list, String separator) {
 		FirstSkip firstSkip = new FirstSkip(separator);
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (Object obj : list) {
 			sb.append(firstSkip.toString()).append(obj);
 		}
