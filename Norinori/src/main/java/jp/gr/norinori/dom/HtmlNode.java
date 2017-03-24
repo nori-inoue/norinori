@@ -4,8 +4,7 @@ import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Node;
 
 /**
- * HTMLノード
- * Jsoup版
+ * HTMLノード Jsoup版
  *
  * @author inoue
  */
@@ -43,5 +42,13 @@ public class HtmlNode<T extends HtmlNode> extends jp.gr.norinori.core.collection
 	public HtmlAttributes getAttribute() {
 		Attributes attributes = this.node.attributes();
 		return new HtmlAttributes(attributes);
+	}
+
+	/*
+	 * (非 Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return this.node.toString();
 	}
 }
