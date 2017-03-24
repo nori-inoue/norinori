@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import jp.gr.norinori.define.Encoding;
@@ -72,8 +73,32 @@ public class HtmlParserTest extends NorinoriTest {
 			HtmlDocument document = HtmlParser.parse(url, query);
 
 			HtmlElement h3Element = document.getFirstElementByTag("h3");
-			System.out.println(h3Element.toString());
 			assertThat(h3Element.getValue(), containsString("サクラ"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Ignore
+	public void testParseWithLogin() {
+
+		try {
+			String ua = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36 ";
+
+			URL loginUrl = new URL("http://localhost:8090//development/session/login");
+			Map<String, String> post = new HashMap<>();
+			post.put("email", "inoue");
+			post.put("password", "inoue");
+
+			Authorization authorization = HtmlParser.authoricate(loginUrl, ua, post);
+
+			URL topUrl = new URL("http://localhost:8090/development/");
+			HtmlDocument document = HtmlParser.parse(topUrl, null, authorization);
+
+			HtmlElement h2Element = document.getFirstElementByTag("h2");
+			assertNull(h2Element);
 
 		} catch (Exception e) {
 			e.printStackTrace();
