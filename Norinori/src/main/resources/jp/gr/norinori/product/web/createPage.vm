@@ -1,0 +1,35 @@
+package ${package};
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+/**
+ *  ${className}
+ */
+public class ${className} extends PageBase {
+
+	public LoginPage(WebDriver driver) {
+		super(driver);
+	}
+
+	protected String getUrl() {
+		return "${baseUrl}";
+	}
+
+#foreach( $inputElement in $inputElements)
+	public void set${util.pascalize($inputElement)}(String value) {
+		WebElement element = this.driver.findElement(By.id("$inputElement"));
+		element.sendKeys(value);
+	}
+
+#end
+
+#foreach( $formElement in $formElements)
+	public WebElement ${formElement}Form() {
+		WebElement form = this.driver.findElement(By.id("${formElement}"));
+		return form;
+	}
+
+#end
+}
