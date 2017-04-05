@@ -1,10 +1,10 @@
 package jp.gr.norinori.application;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import jp.gr.norinori.application.ArgumentsFrame;
+import jp.gr.norinori.core.collection.NumberingHashMap;
 import jp.gr.norinori.utility.ArrayUtil;
+import jp.gr.norinori.utility.StringUtil;
 
 /**
  * コマンドライン引数
@@ -20,17 +20,22 @@ public class CommandLineArgument extends ArgumentsFrame {
 	 * @param args 引数
 	 */
 	public CommandLineArgument(String[] args) {
-		super(args);
+		super(createArgumentsMap(args));
 	}
 
-	@Override
-	protected Map<String, String[]> parase(String[] args) {
-		Map<String, String[]> argsMap = new HashMap<String, String[]>();
+	/**
+	 * 解析する
+	 *
+	 * @param args 引数
+	 * @return 解析結果をMapで返す
+	 */
+	private final static Map<String, String[]> createArgumentsMap(String[] args) {
+		Map<String, String[]> argsMap = new NumberingHashMap<String, String[]>();
 
 		String key = "";
 		for (String arg : args) {
 			if (arg != null && arg.indexOf('-') == 0) {
-				if (!argsMap.containsKey(key)) {
+				if (!StringUtil.isEmpty(key) && !argsMap.containsKey(key)) {
 					argsMap.put(key, new String[] {});
 				}
 				key = arg;
@@ -43,7 +48,7 @@ public class CommandLineArgument extends ArgumentsFrame {
 				argsMap.put(key, values);
 			}
 		}
-		if (!argsMap.containsKey(key)) {
+		if (!StringUtil.isEmpty(key) && !argsMap.containsKey(key)) {
 			argsMap.put(key, new String[] {});
 		}
 

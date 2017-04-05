@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import jp.gr.norinori.application.Arguments;
+import java.util.Map.Entry;
 
 /**
  * 引数フレーム
@@ -27,13 +26,17 @@ public abstract class ArgumentsFrame implements Arguments {
 
 	// コンストラクタ===========================================================
 	/**
-	 * ファイル情報のインスタンスを生成する
+	 * 引数のインスタンスを生成する
 	 *
-	 * @param file ファイル
+	 * @param argumentsMap 引数マップ
 	 */
-	public ArgumentsFrame(String[] args) {
-		this.arguments = parase(args);
-		this.argumentList = new ArrayList<String>(Arrays.asList(args));
+	public ArgumentsFrame(Map<String, String[]> argumentsMap) {
+		this.arguments = argumentsMap;
+		this.argumentList = new ArrayList<String>();
+		for (Entry<String, String[]> en : this.arguments.entrySet()) {
+			this.argumentList.add(en.getKey());
+			this.argumentList.addAll(Arrays.asList(en.getValue()));
+		}
 	}
 
 	/**
@@ -88,13 +91,5 @@ public abstract class ArgumentsFrame implements Arguments {
 		}
 		return null;
 	}
-
-	/**
-	 * 解析する
-	 *
-	 * @param args 引数
-	 * @return 解析結果をMapで返す
-	 */
-	abstract protected Map<String, String[]> parase(String[] args);
 
 }
