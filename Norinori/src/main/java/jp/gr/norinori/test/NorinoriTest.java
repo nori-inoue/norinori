@@ -40,6 +40,13 @@ public class NorinoriTest extends Assert {
 		boolean isActualLiving = false;
 
 		try {
+			if(!expected.exists()) {
+				fail("expected file not exists");
+			}
+			if(!actual.exists()) {
+				fail("actual file not exists");
+			}
+
 			isExpectedLiving = expected.isLiving();
 			if (!isExpectedLiving) {
 				expected.open();
