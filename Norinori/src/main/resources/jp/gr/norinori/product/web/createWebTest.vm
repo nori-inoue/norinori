@@ -1,0 +1,109 @@
+package ${package};
+
+import static org.junit.Assert.*;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+#if( $browser.isChrome() )
+import org.openqa.selenium.chrome.ChromeDriver;
+#elseif( $browser.isIE() )
+import org.openqa.selenium.ie.InternetExplorerDriver;
+#end
+
+/**
+ *  ${outline.title}
+ */
+public class ${className} extends WebTestBase {
+	private StringBuffer verificationErrors = new StringBuffer();
+
+
+	@Before
+	public void setUp() throws Exception {
+#if( $browser.isChrome() )
+		System.setProperty("webdriver.chrome.driver", "./driver/chromedriver.exe");
+		this.driver = new ChromeDriver();
+#elseif( $browser.isIE() )
+		File file = new File("./driver/IEDriverServer.exe");
+		System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
+		this.driver = new InternetExplorerDriver();
+#end
+		this.driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
+		String testdir = this.getClass().getSimpleName();
+		this.screenshotPath = this.screenshotPath + testdir;
+
+		File path = new File(this.screenshotPath);
+		if (!path.exists()) {
+			path.mkdir();
+		}
+	}
+	
+	@After
+	public void tearDown() throws Exception {
+		this.driver.quit();
+		String verificationErrorString = verificationErrors.toString();
+		if (!"".equals(verificationErrorString)) {
+			fail(verificationErrorString);
+		}
+	}
+
+#foreach( $testCase in $testCases)
+#if( $testCase.Name != "" )
+	/**
+	 * ${testCase.Description}
+	 * 
+	 * @throws Exception
+	 */
+#if( $testCase.existsChain() == false )
+	@Test
+#end
+	public void ${testCase.Name}() throws Exception {
+#if( $testCase.Chain )
+		${testCase.Chain.Name}();
+
+#end
+#if( $testCase.Action.isUrl() )
+		this.driver.get(this.baseUrl + "/${testCase.Action.Action.Name}");
+#if( $testCase.Action.Action.isPathType() )
+		this.driver.findElement(By.xpath("${testCase.Action.Action.Name}")).click();
+#else
+		this.driver.findElement(By.linkText("${testCas.Action.Action.Name}")).click();
+#end
+
+#end
+#foreach( $input in $testCase.Inputs)
+#if( $input.KeyElement.isNameType() )
+		WebElement ${input.KeyElement.Name} = this.driver.findElement(By.name("${input.KeyElement.Name}"));
+#else
+		WebElement ${input.KeyElement.Name} = this.driver.findElement(By.id("${input.KeyElement.Name}"));
+#end
+#if( $input.isAction() )
+		${input.KeyElement.Name}.${input.Value};
+#else
+		${input.KeyElement.Name}.sendKeys("${input.Value}");
+#end
+#end
+#foreach( $result in $testCase.Results)
+
+#if( $result.KeyElement.isPathType() )
+#if( $result.Value != "" )
+		assertTrue(this.driver.findElement(By.xpath("${result.KeyElement.Name}")).getText().indexOf("${result.Value}") >= 0);
+#else
+		assertEquals("", this.driver.findElement(By.xpath("${result.KeyElement.Name}")).getText());
+#end
+#elseif($result.KeyElement.Name == "<title>")
+		assertEquals("${result.Value}", this.driver.getTitle());
+#end
+#end
+		capture("${testCase.Name}", "capture");
+	}
+
+#end
+#end
+}
